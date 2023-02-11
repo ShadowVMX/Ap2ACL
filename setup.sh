@@ -11,7 +11,7 @@ echo " "
 
 echo -e "$(tput setaf 1)[$(tput setaf 2)*$(tput setaf 1)]$(tput setaf 2) \e[1;46m Installing Apache 2. . .  \e[0m"
 
-apt install -y apach2 &> /dev/null
+apt install -y apache2 &> /dev/null
 
 echo " "
 echo -e "$(tput setaf 1)[$(tput setaf 2)*$(tput setaf 1)]$(tput setaf 2) \e[1;46m Updating System . . . \e[0m"
