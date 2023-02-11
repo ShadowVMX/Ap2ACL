@@ -31,6 +31,8 @@ fi
 
 sleep 1
 
+chmod +x Ap2ACL
+
 echo " "
 echo -e "$(tput setaf 1)[$(tput setaf 3)*$(tput setaf 1)]$(tput setaf 2) \e[1;41m FINALIZADO . . .\e[0m"
 echo " "
