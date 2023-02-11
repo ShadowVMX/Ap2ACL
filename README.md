@@ -15,3 +15,11 @@ Herramienta desarrollada en BASH qué tiene cómo objetivo crear una ACL en Capa
 3. chmod +x setup.sh
 
 4. ./setup.sh
+
+
+## Uso:
+
+1. Ap2ACL --Bloquear Bloqueará tantas IPs cómo le indiquemos:
+
+
+
