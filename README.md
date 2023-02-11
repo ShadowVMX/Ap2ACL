@@ -8,7 +8,7 @@ Herramienta desarrollada en BASH qué tiene cómo objetivo crear una ACL en Capa
 
 ## Instalación: 
 
-1. git clone [https://github.com/Shhttps://github.com/ShadowVMX/Ap2ACLadowVMX/Ap2ACL.git](https://github.com/ShadowVMX/Ap2ACL)
+1. git clone https://github.com/ShadowVMX/Ap2ACL
 
 2. cd Ap2ACL
 
