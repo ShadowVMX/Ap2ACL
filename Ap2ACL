@@ -1,0 +1,122 @@
+#!/bin/bash
+#
+#
+#
+####################################################
+#												   #
+#												   #
+#	Script SHELL para ACL en Apache2 by ShadowVMX  #
+#												   #
+#												   #
+####################################################
+#
+#
+#
+
+echo "$(tput setaf 3)"
+figlet Ap2ACL
+echo " "
+echo "$(tput setaf 4)    --> ShadowVMX $(tput setaf 1)v1.0 $(tput setaf 4)<-- "
+echo " "
+echo "$(tput setaf 4)    --> https://www.linkedin.com/in/juanma-coello-romero-757280226/ <-- "
+echo " "
+
+
+trap exitcl SIGINT
+
+
+function exitcl (){
+	echo " "
+	echo " "
+	echo "$(tput setaf 1)[$(tput setaf 3)*$(tput setaf 1)]$(tput setaf 2) Ctrl_C detected..."
+	echo " "
+	sleep 1
+	echo "$(tput setaf 1)[$(tput setaf 3)*$(tput setaf 1)]$(tput setaf 2) Saliendo ... "
+	sleep 0.5
+	echo "$(tput setaf 1)[$(tput setaf 3)*$(tput setaf 1)]$(tput setaf 2) Done."
+	exit
+}
+
+if [[ -z $1 ]] ; then
+	echo " "
+	echo "$(tput setaf 3)[$(tput setaf 9)*$(tput setaf 3)]$(tput setaf 6) Ap2ACL --Restaurar"
+	echo " "
+	echo "$(tput setaf 3)[$(tput setaf 9)*$(tput setaf 3)]$(tput setaf 6) Ap2ACL --Bloquear"
+	echo " "
+	exit
+fi
+
+if [[ $1 == "--Restaurar" ]] ; then
+	read -p "$(tput setaf 1)[$(tput setaf 6)*$(tput setaf 1)]$(tput setaf 2) ¿Estás seguro de qué desea restaurar por completo el archivo de configuración? (Y/y): $(tput setaf 4)" sino
+	if [[ $sino == "y" ]] || [[ $sino == "Y" ]] ; then
+		echo "$(tput setaf 1)[$(tput setaf 6)*$(tput setaf 1)]$(tput setaf 2) Restaurando ... Espere... "
+		echo " "
+		sleep 1
+		cp apache2.conf /etc/apache2/
+		sudo systemctl restart apache2
+
+		mkrt="#"
+
+		echo -n "$(tput setaf 8)["
+		for ((i=1;i<=20;i++))
+			do
+    		echo -n "$(tput setaf 4)$mkrt"
+    		sleep 0.1
+			done
+		echo -n "$(tput setaf 8)]"
+		echo " "
+		echo "$(tput setaf 1)[$(tput setaf 6)*$(tput setaf 1)]$(tput setaf 2) Completado ... "
+		sleep 0.5
+		exit
+	else
+	echo "$(tput setaf 1)[$(tput setaf 6)*$(tput setaf 1)]$(tput setaf 2) No llevando nada a cabo ... "
+	sleep 1
+	echo "$(tput setaf 1)[$(tput setaf 6)*$(tput setaf 1)]$(tput setaf 2) Saliendo ..."
+	sleep 0.5
+	exit
+fi
+fi
+
+if [[ $1 == "--Bloquear" ]] ; then
+cp apache2.conf /etc/apache2/
+echo "$(tput setaf 2)"
+# Pregunta al usuario cuántas direcciones IP desea bloquear
+read -p "$(tput setaf 1)[$(tput setaf 6)*$(tput setaf 1)]$(tput setaf 2) ¿Cuántas direcciones IP deseas bloquear?: $(tput setaf 4)" num_ips
+echo " "
+
+# Bucle para solicitar direcciones IP al usuario
+echo "<Location />" >> /etc/apache2/apache2.conf
+for ((i=1;i<=num_ips;i++))
+do
+  read -p " $(tput setaf 1)[$(tput setaf 6)*$(tput setaf 1)]$(tput setaf 2) Introduce la dirección IP a bloquear: $(tput setaf 4)" ip
+  echo "  Deny from $ip" >> /etc/apache2/apache2.conf
+done
+echo "</Location>" >> /etc/apache2/apache2.conf
+
+echo " "
+echo "$(tput setaf 1)[$(tput setaf 3)*$(tput setaf 1)]$(tput setaf 2) Proceso completado ... Espere..."
+echo " "
+echo "$(tput setaf 1)[$(tput setaf 3)*$(tput setaf 1)]$(tput setaf 2) Reiniciando el servicio Apache2..."
+echo " "
+
+# Reinicia Apache2 para que los cambios tengan efecto
+sudo systemctl restart apache2
+
+mkrt="#"
+
+echo -n "$(tput setaf 8)["
+for ((i=1;i<=20;i++))
+do
+	echo -n "$(tput setaf 4)$mkrt"
+	sleep 0.1
+done
+echo -n "$(tput setaf 8)]"
+echo " "
+echo " "
+echo "$(tput setaf 1)[$(tput setaf 3)*$(tput setaf 1)]$(tput setaf 2) Completado con éxito..."
+echo " "
+sleep 1
+echo "$(tput setaf 1)[$(tput setaf 3)*$(tput setaf 1)]$(tput setaf 2) Saliendo... "
+echo "" 
+
+fi
